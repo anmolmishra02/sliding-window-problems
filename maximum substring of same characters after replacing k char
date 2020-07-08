@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int solve(string a,int k)
+{
+  unordered_map<char,int> mp;
+  int windowstart=0;
+  int maxlen=0;
+  int countmaxfreq=0;
+  for(int windowend=0;windowend<a.length();windowend++)
+  { 
+    if(mp.find(a[windowend])==mp.end())
+    {
+     mp[a[windowend]]=0;
+    }
+    mp[a[windowend]]++;
+    countmaxfreq=max(countmaxfreq,mp[a[windowend]]);
+    if(windowend-windowstart+1-countmaxfreq>k)
+    {
+      mp[a[windowstart]]--;
+      windowstart++;
+    }
+    maxlen=max(maxlen,windowend-windowstart+1);
+  }
+  return maxlen;
+}
+
+
+int main()
+{
+  string s;
+  cin>>s;
+  int k;
+  cin>>k;
+  cout<<solve(s,k);
+}
